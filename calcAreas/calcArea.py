@@ -72,7 +72,7 @@ def createPlotAxis(
             y_sorted[start : end + 1],
             color=color,
             alpha=0.5,
-            label=f"Area {i + 1}: {areas[i]:.2f}",
+            label=f"Area {i + 1}: {areas[i]:.0f}",
         )
 
         # Aggiungi il testo dell'area al centro di ogni tratto
@@ -81,7 +81,7 @@ def createPlotAxis(
         ax.text(
             mid_x,
             mid_y,
-            f"{areas[i]:.2f}",
+            f"{areas[i]:.0f}",
             ha="center",
             va="center",
             fontsize=10,
@@ -139,4 +139,4 @@ if __name__ == "__main__":
 
     # Stampa le aree calcolate
     for i, area in enumerate(areas):
-        print(f"Area tra l'intersezione {i + 1} e {i + 2}: {area:.2f}")
+        print(f"Area tra l'intersezione {i + 1} e {i + 2}: {area:.0f}")
