@@ -1,5 +1,5 @@
 import pandas as pd
-from calcAreas.calcArea import findIntersections, calcAreas, createPlotAxis
+from utilities.calcArea import findIntersections, calcAreas, createPlotAxis
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
