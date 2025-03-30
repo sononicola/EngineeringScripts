@@ -1,9 +1,7 @@
-import matplotlib
-import matplotlib.axes
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
 from scipy.integrate import trapezoid
-
 
 
 def findIntersections(x, y):
@@ -26,20 +24,20 @@ def findIntersections(x, y):
     # Unisci i vettori originali con i punti di intersezione
     x_combined = np.concatenate((x, x_intersections))
     y_combined = np.concatenate((y, np.zeros_like(x_intersections)))
-    print(x_intersections)
+    # print(x_intersections)
     # Ordina i vettori risultanti
     sorted_indices = np.argsort(x_combined)
-    print(sorted_indices)
+    # print(sorted_indices)
     x_sorted = x_combined[sorted_indices]
     y_sorted = y_combined[sorted_indices]
 
-    print(x_sorted)
+    # print(x_sorted)
     zero_crossings = np.where(np.isin(x_sorted, x_intersections))[0]
 
-    print(zero_crossings)
+    # print(zero_crossings)
     # Aggiungi gli estremi
     zero_crossings = np.concatenate(([0], zero_crossings, [len(x_sorted) - 1]))
-    print(zero_crossings)
+    # print(zero_crossings)
     return x_sorted, y_sorted, zero_crossings, x_intersections
 
 
@@ -54,12 +52,9 @@ def calcAreas(x_sorted, y_sorted, zero_crossings):
     return areas
 
 
-
-
-
 def createPlotAxis(
-    ax: matplotlib.axes.Axes, x_sorted, y_sorted, zero_crossings, x_intersections, areas
-) -> matplotlib.axes.Axes:
+    x_sorted, y_sorted, zero_crossings, x_intersections, areas, ax: Axes | None = None
+) -> Axes:
     if ax is None:
         _, ax = plt.subplots(1, 1, figsize=(12, 7))
 
@@ -96,16 +91,16 @@ def createPlotAxis(
     # Aggiungi linee verticali per le intersezioni
     for x_intersect in x_intersections:
         ax.axvline(x=x_intersect, color="red", linestyle="--")
-        ax.text(
-            x_intersect,
-            0.1,
-            f"x = {x_intersect:.2f}",
-            ha="center",
-            va="bottom",
-            fontsize=10,
-            color="black",
-            bbox=dict(facecolor="white", alpha=0.8, edgecolor="none"),
-        )
+        # ax.text(
+        #     x_intersect,
+        #     0.1,
+        #     f"x = {x_intersect:.2f}",
+        #     ha="center",
+        #     va="bottom",
+        #     fontsize=10,
+        #     color="black",
+        #     bbox=dict(facecolor="white", alpha=0.8, edgecolor="none"),
+        # )
     # Aggiungi etichette e titolo
     ax.set_xlabel("x")
     ax.set_xlabel("y")
@@ -115,7 +110,8 @@ def createPlotAxis(
     ax.grid()
     return ax
 
-if  __name__ == "__main__":
+
+if __name__ == "__main__":
     # Dati di input
     x = np.array([-1, -0.5, 0.5, 1, 2])
     y = np.array([1, 1, 1, -0.5, -1])
