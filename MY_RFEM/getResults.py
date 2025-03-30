@@ -54,7 +54,7 @@ def getMaxMinValue(structured_results: ResultTables, parameter: str) -> float:
 
 
 def getResultsPerMember(
-    loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, loading_no: int = 1
+    loading_type: CaseObjectType, loading_no: int = 1
 ) -> list[dict[str, float]]:
     "Return a list of dictionaries with all relevant results for each member in the model"
     listOfResults: list[dict[str, float]] = []
@@ -106,23 +106,22 @@ def getResultsPerMember(
         listOfResults.append(results)
 
     return listOfResults
+
+
 def getResultsLinesSupport(
-    loading_type: enum, loading_no: int 
+    loading_type: CaseObjectType, loading_no: int = 1
 ) -> list[dict[str, float]]:
     "Return a list of dictionaries with all line's support actions"
     listOfResults: list[dict[str, float]] = []
     line_no = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_LINE)
     print(line_no)
     for line in line_no:
-        dispTable:list[dict[str, float]] = ResultTables.LinesSupportForces(
+        dispTable: list[dict[str, float]] = ResultTables.LinesSupportForces(
             loading_type, loading_no, line
         )
         for dct in dispTable:
-            dct.update({
-                "loading_type" : loading_type,
-                "loading_no" : loading_no
-            })
-        
+            dct.update({"loading_type": loading_type, "loading_no": loading_no})
+
             listOfResults.append(dct)
 
     return listOfResults
