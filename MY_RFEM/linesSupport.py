@@ -85,13 +85,13 @@ def saveEveryLine(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(listOfDict)
 
 
-def plotEveryLine(df: pd.DataFrame, pathToSave: Path) -> None:
+def plotEveryLine(df: pd.DataFrame, pathToSave: Path,loadingName:str ="") -> None:
     df.dropna(how="any", subset=["line_no"], inplace=True)
 
     for line_no in df["line_no"].unique():
         df_line = df.loc[(df["line_no"] == line_no)].copy()
         df_line.sort_values(by="location", inplace=True, ascending=True)
-        createPlotsPerLine(df_line=df_line, line_no=line_no, pathToSave=pathToSave)
+        createPlotsPerLine(df_line=df_line, line_no=line_no, pathToSave=pathToSave, loadingName=loadingName)
 
 
 def createPlotsPerLinePerAction(
